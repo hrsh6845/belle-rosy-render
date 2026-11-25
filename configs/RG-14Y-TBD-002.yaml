@@ -1,0 +1,18 @@
+# 2 ct pear solitaire, 14k yellow gold band, white gold prongs (matches the real ring)
+sku: RG-14Y-TBD-002
+type: solitaire_ring
+stone: {shape: pear, carat: 2.0}
+metal: yellow_14k
+prong_metal: white
+ring_size: 6
+band_width: 1.9
+band_thickness: 1.6
+setting_height: 0.9
+size: [1600, 1600]
+studio:
+  background: [245, 245, 245]
+  samples: 128
+views:
+  front: {elevation: 58, azimuth: 0}
+  angle: {elevation: 30, azimuth: 35}
+  top: {elevation: 88, azimuth: 0}

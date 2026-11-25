@@ -1,0 +1,13 @@
+# 5.5 ct round graduated drops, 14k white (7 stones per earring, small at the top)
+sku: ER-14W-002
+type: drop_earrings
+metal: white
+stones:
+  - {shape: round, carat: 0.18}
+  - {shape: round, carat: 0.24}
+  - {shape: round, carat: 0.3}
+  - {shape: round, carat: 0.38}
+  - {shape: round, carat: 0.46}
+  - {shape: round, carat: 0.6}
+  - {shape: round, carat: 0.59}
+spacing: 16

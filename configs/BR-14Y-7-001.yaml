@@ -1,0 +1,14 @@
+# 7.07 ct mixed-shape bracelet, 14k yellow, 7 in (36 stones). Shape order is a starting point: match it to the piece.
+sku: BR-14Y-7-001
+type: tennis_bracelet
+stones:
+  - {shape: emerald, carat: 0.2, angle: 90}
+  - {shape: oval, carat: 0.2, angle: 90}
+  - {shape: pear, carat: 0.2, angle: 90}
+  - {shape: round, carat: 0.18}
+  - {shape: marquise, carat: 0.2, angle: 90}
+  - {shape: cushion, carat: 0.2}
+count: 37
+length_in: 7
+metal: yellow_14k
+gap: 0.6

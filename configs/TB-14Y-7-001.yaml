@@ -1,0 +1,9 @@
+# 14.01 ct marquise tennis bracelet, 14k yellow, 7 in (43 stones, ~0.33 ct each)
+sku: TB-14Y-7-001
+type: tennis_bracelet
+stone: {shape: marquise, carat: 0.326}
+stone_angle: 35          # marquises set on a slant, like the vendor render
+count: 44                # 43 stones + the clasp slot
+length_in: 7
+metal: yellow_14k
+gap: 0.3

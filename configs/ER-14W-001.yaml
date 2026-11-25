@@ -1,0 +1,10 @@
+# 8.425 ct marquise, pear and round drops, 14k white (4 stones per earring). Sizes are a starting point.
+sku: ER-14W-001
+type: drop_earrings
+metal: white
+stones:
+  - {shape: round, carat: 0.6}
+  - {shape: marquise, carat: 1.0}
+  - {shape: marquise, carat: 1.0}
+  - {shape: pear, carat: 1.6, rotate: 180}
+spacing: 20
