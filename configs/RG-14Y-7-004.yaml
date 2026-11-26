@@ -1,0 +1,16 @@
+# 14.54 ct emerald-cut full eternity ring (vendor S2981C): 14 stones (~1.04 ct each) set lengthwise along
+# the band in shared prongs, 14k yellow gold, US 7. Prong colour to confirm from photos.
+sku: RG-14Y-7-004
+type: eternity_ring
+stone: {shape: emerald, carat: 1.04, angle: 0}
+count: 14
+ring_size: 7
+metal: yellow_14k
+gap: 0.25
+size: [1600, 1600]
+studio:
+  background: [245, 245, 245]
+  samples: 128
+views:
+  front: {elevation: 58, azimuth: 0}
+  angle: {elevation: 30, azimuth: 35}
