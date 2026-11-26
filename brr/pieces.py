@@ -304,3 +304,77 @@ def eternity_ring(cfg):
         M = (Matrix.Rotation(a, 4, 'Y') @ Matrix.Translation((0, 0, R)) @ Matrix.Rotation(math.pi / 2 + ang, 4, 'Z'))
         set_stone(f'e{i}', st['shape'], L, W, M, dia, prong_mat, cfg.get('prongs'), cfg.get('prong_radius'),
                   root_z=-hp - 0.2, basket=False)
+
+
+def chain(name, path, mat, link=1.3, wire=0.14, width=0.75):
+    """A cable chain along a path (list of points, mm): small oval links, every other one turned 90 degrees."""
+    pts = [Vector(p) for p in path]
+    # resample the path evenly at the link pitch
+    seg = [(pts[i], pts[i + 1]) for i in range(len(pts) - 1)]
+    total = sum((b - a).length for a, b in seg)
+    n = max(2, int(total / link))
+    samples = []
+    for k in range(n + 1):
+        d = total * k / n
+        for a, b in seg:
+            L = (b - a).length
+            if d <= L or (a, b) == seg[-1]:
+                samples.append(a.lerp(b, min(d / L, 1.0)))
+                break
+            d -= L
+    bpy.ops.mesh.primitive_torus_add(major_radius=1.0, minor_radius=wire, major_segments=24, minor_segments=8)
+    proto = bpy.context.object
+    proto.name = name + '_proto'
+    me = proto.data
+    me.materials.append(mat)
+    for p in me.polygons:
+        p.use_smooth = True
+    bpy.data.objects.remove(proto)
+    for k in range(len(samples) - 1):
+        a, b = samples[k], samples[k + 1]
+        c = (a + b) / 2
+        t = (b - a).normalized()
+        o = bpy.data.objects.new(f'{name}_{k}', me)
+        bpy.context.scene.collection.objects.link(o)
+        # torus lies in its local XY plane: stretch along x (the chain direction), then align x to the tangent
+        o.scale = ((b - a).length * 0.95, width / 2, 1.0)
+        rot = t.to_track_quat('X', 'Z')
+        o.rotation_mode = 'QUATERNION'
+        o.rotation_quaternion = rot @ Matrix.Rotation(math.pi / 2 * (k % 2), 4, 'X').to_quaternion()
+        o.location = c
+
+
+def cluster_pendant(cfg):
+    """Stones arranged in a motif (butterfly, flower, star...) lying flat, table up, with an optional gold
+    body bar, jump rings at the attach points, and a cable chain running out of frame.
+
+    stones: list of {shape, carat (or length/width), pos: [x, y], rotate: degrees}
+    body: {from: [x, y], to: [x, y], radius}
+    chain: list of paths, each a list of [x, y] (or [x, y, z]) points, starting at an attach point
+    """
+    metal, prong_mat, dia = _mats(cfg)
+    zmax = 0
+    for i, s in enumerate(cfg['stones']):
+        L, W = stone_size(s)
+        _, hc, hp = gems.stone_mesh(bmesh.new(), s['shape'], L, W)
+        x, y = s['pos']
+        M = Matrix.Translation((x, y, hp + 0.5))
+        set_stone(f'c{i}', s['shape'], L, W, M, dia, prong_mat, s.get('prongs'), cfg.get('prong_radius'),
+                  root_z=-hp - 0.3, rotate=s.get('rotate', 0))
+        zmax = max(zmax, hp + 0.5)
+    if 'body' in cfg:
+        b = cfg['body']
+        z = zmax + 0.3
+        tube('body', [(*b['from'], z), (*b['to'], z)], b.get('radius', 0.7), metal, smooth_path=False)
+        ball('body_end0', (*b['from'], z), b.get('radius', 0.7), metal)
+        ball('body_end1', (*b['to'], z), b.get('radius', 0.7), metal)
+    for j, path in enumerate(cfg.get('chain', [])):
+        pts = [tuple(p) + ((zmax * 0.6,) if len(p) == 2 else ()) for p in path]
+        # jump ring at the attach point
+        bpy.ops.mesh.primitive_torus_add(major_radius=0.55, minor_radius=0.16, location=pts[0])
+        ring = bpy.context.object
+        ring.name = f'jump{j}'
+        ring.rotation_euler.x = math.pi / 2
+        ring.data.materials.append(metal)
+        bpy.ops.object.shade_smooth()
+        chain(f'chain{j}', pts, metal, cfg.get('link', 1.3), cfg.get('wire', 0.14), cfg.get('link_width', 0.6))

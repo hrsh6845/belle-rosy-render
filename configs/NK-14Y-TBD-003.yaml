@@ -1,0 +1,25 @@
+# 2.51 ct butterfly pendant necklace (vendor S1503C): 14k yellow gold, white-gold prongs,
+# two marquise upper wings and two pear lower wings around a yellow-gold body; fixed cable chain.
+# Stone split (2 x 0.72 ct marquise + 2 x 0.535 ct pear) is estimated from the photos.
+sku: NK-14Y-TBD-003
+type: cluster_pendant
+metal: yellow_14k
+prong_metal: white
+stones:
+  - {shape: marquise, carat: 0.72, pos: [5.6, 2.4], rotate: -55, prongs: [0.0, 0.5]}
+  - {shape: marquise, carat: 0.72, pos: [-5.6, 2.4], rotate: 55, prongs: [0.0, 0.5]}
+  - {shape: pear, carat: 0.535, pos: [3.8, -3.6], rotate: 35}
+  - {shape: pear, carat: 0.535, pos: [-3.8, -3.6], rotate: -35}
+body: {from: [0, -3.4], to: [0, 3.0], radius: 0.75}
+chain:
+  - [[10.6, 6.0], [13, 8.5], [16.5, 13], [20, 19], [23, 26], [26, 34], [28, 44]]
+  - [[-10.6, 6.0], [-13, 8.5], [-16.5, 13], [-20, 19], [-23, 26], [-26, 34], [-28, 44]]
+size: [1600, 1600]
+studio:
+  background: [245, 245, 245]
+  samples: 128
+views:
+  top: {elevation: 88, focus: {centre: [0, 5, 0], radius: 17}}
+  angle: {elevation: 50, azimuth: 15, focus: {centre: [0, 0, 0], radius: 12}}
+link: 0.95
+wire: 0.12

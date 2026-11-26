@@ -171,7 +171,7 @@ def settings(width, height, samples=256, bounces=24):
     s.render.image_settings.color_mode = 'RGBA'
 
 
-def composite(png, out_jpg, bg=(245, 245, 245), shadow=0.55):
+def composite(png, out_jpg, bg=(245, 245, 245), shadow=0.35):
     """Put the transparent render on a flat background colour, keeping the soft contact shadow."""
     from PIL import Image, ImageFilter
     im = Image.open(png).convert('RGBA')

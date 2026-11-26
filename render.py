@@ -25,6 +25,7 @@ BUILDERS = {
     'tennis_bracelet': pieces.tennis_bracelet,
     'stud_earrings': pieces.stud_earrings,
     'drop_earrings': pieces.drop_earrings,
+    'cluster_pendant': pieces.cluster_pendant,
 }
 
 DEFAULT_VIEWS = {
@@ -33,6 +34,7 @@ DEFAULT_VIEWS = {
     'tennis_bracelet': {'top': dict(elevation=80), 'angle': dict(elevation=40, azimuth=20)},
     'stud_earrings': {'top': dict(elevation=75), 'angle': dict(elevation=40, azimuth=25)},
     'drop_earrings': {'top': dict(elevation=85), 'angle': dict(elevation=50, azimuth=20)},
+    'cluster_pendant': {'top': dict(elevation=88), 'angle': dict(elevation=45, azimuth=15)},
 }
 
 
@@ -69,6 +71,8 @@ def render(cfg_path, preview=False, only=None, out_root='renders'):
         if only and name != only:
             continue
         lo, hi, centre, radius = build(cfg)
+        if 'focus' in v:                     # frame part of the piece (e.g. a pendant, not its whole chain)
+            centre = Vector(v['focus'].get('centre', centre)); radius = v['focus'].get('radius', radius)
         studio.world(look.get('world', 0.7))
         studio.lights(centre, radius * 2, look)
         studio.floor(lo.z - 0.02, radius * 40)
